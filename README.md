@@ -175,7 +175,7 @@ Basta errar um caractere para o hash mudar totalmente (efeito avalanche).
 | **Python + só biblioteca padrão** | Roda em qualquer máquina com `python3 app.py`, sem `pip install`. Foco no conceito, não em dependências. |
 | **Hash, e não criptografia reversível (AES etc.)** | Criptografia reversível exige uma chave; se a chave vazar junto com o banco, todas as senhas são reveladas. Hash não tem volta, então não existe chave para roubar. |
 | **PBKDF2 em vez de SHA-256 puro** | SHA-256 é *rápido demais*: uma GPU testa bilhões de senhas por segundo. PBKDF2 com 600.000 iterações deixa cada tentativa ~600.000× mais cara, inviabilizando força bruta. É padrão NIST e recomendado pela OWASP. (Argon2 e bcrypt também são ótimas opções, mas exigiriam bibliotecas externas.) |
-| **600.000 iterações** | Valor recomendado pela OWASP (2023) para PBKDF2-HMAC-SHA256. Para o usuário legítimo custa ~0,3 s; para quem testa milhões de senhas fica inviável. |
+| **600.000 iterações** | Valor recomendado pela OWASP (2023) para PBKDF2-HMAC-SHA256. Para o usuário legítimo custa menos de meio segundo; para quem testa milhões de senhas fica inviável. |
 | **Salt aleatório de 16 bytes por usuário** | Impede o uso de *rainbow tables* (tabelas de hashes pré-calculados) e faz senhas iguais gerarem hashes diferentes. O salt **não é segredo**, por isso pode ficar salvo ao lado do hash. |
 | **`secrets.token_bytes`** em vez de `random` | `secrets` usa o gerador criptograficamente seguro do sistema operacional; `random` é previsível. |
 | **`hmac.compare_digest`** na comparação | Compara em tempo constante, evitando *timing attacks* (descobrir o hash pelo tempo que a comparação demora). |
